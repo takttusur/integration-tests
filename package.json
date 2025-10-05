@@ -1,0 +1,27 @@
+{
+  "name": "integration-tests",
+  "version": "1.0.0",
+  "description": "Integration tests to cover cases when the frontend works with backend together.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "services:up": "docker compose up -d",
+    "services:down": "docker compose down",
+    "services:logs": "docker compose logs -f",
+    "test:integration": "npm run services:up && wait-on http://localhost:3000 http://localhost:3001 && npm run test && npm run services:down",
+    "test:ci": "npm run services:up && wait-on http://localhost:3000 http://localhost:3001 && npm run test -- --reporter=junit && npm run services:down"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.55.1",
+    "concurrently": "^9.2.1",
+    "dotenv": "^17.2.3",
+    "playwright": "^1.55.1",
+    "wait-on": "^9.0.1"
+  }
+}
